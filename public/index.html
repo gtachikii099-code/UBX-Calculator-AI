@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="theme-color" content="#080a11">
+  <title>UBX Calculator AI</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <div id="toast"></div>
+
+  <section id="splashScreen" class="splash-screen">
+    <div class="splash-logo">⌁</div>
+    <h1>UBX</h1>
+    <p>CALCULATOR AI</p>
+    <div class="loader"><span></span></div>
+  </section>
+
+  <section id="authScreen" class="screen center-screen hidden">
+    <div class="auth-card glass">
+      <div class="brand-lockup"><div class="brand-icon">⌁</div><div><strong>UBX</strong><span>CALCULATOR AI</span></div></div>
+      <h1>Calculate. Ask. Understand.</h1>
+      <p class="muted">A professional calculator with a premium AI math assistant.</p>
+      <div class="segmented">
+        <button class="seg active" data-auth-tab="login">Login</button>
+        <button class="seg" data-auth-tab="signup">Create account</button>
+      </div>
+      <div id="loginError" class="auth-error hidden"></div>
+          <form id="loginForm" class="auth-form">
+        <label>Email<input id="loginEmail" type="email" required placeholder="you@example.com"></label>
+        <label>Password<input id="loginPassword" type="password" required placeholder="••••••••"></label>
+        <button class="primary full">Enter app</button>
+      </form>
+      <div id="signupError" class="auth-error hidden"></div>
+          <form id="signupForm" class="auth-form hidden">
+        <label>Full name<input id="signupName" required placeholder="Your name"></label>
+        <label>Email<input id="signupEmail" type="email" required placeholder="you@example.com"></label>
+        <label>Password<input id="signupPassword" type="password" minlength="6" required placeholder="6+ characters"></label>
+        <button class="primary full">Create free account</button>
+      </form>
+      <button id="openAdminLogin" class="link-btn">Admin access</button>
+    </div>
+  </section>
+
+  <section id="appScreen" class="screen hidden">
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup small"><div class="brand-icon">⌁</div><div><strong>UBX</strong><span>CALCULATOR AI</span></div></div>
+        <div class="top-actions">
+          <span id="planBadge" class="plan-badge">FREE</span>
+          <button id="themeBtn" class="icon-btn">◐</button>
+          <button id="logoutBtn" class="icon-btn">↗</button>
+        </div>
+      </header>
+      <div id="announcement" class="announcement hidden"></div>
+
+      <nav class="main-tabs glass">
+        <button class="main-tab active" data-view="calculatorView">Calculator</button>
+        <button class="main-tab" data-view="aiView">AI Assistant <span class="crown">✦</span></button>
+        <button class="main-tab" data-view="settingsView">Settings</button>
+      </nav>
+
+      <section id="calculatorView" class="app-view">
+        <div class="hero-grid">
+          <div class="calculator-card glass">
+            <div class="calc-head"><div><span class="eyebrow">CALCULATOR</span><h2>Standard</h2></div></div>
+            <div class="display"><div id="expression" class="expression">0</div><div id="result" class="result">0</div></div>
+            <div class="scientific-keys">
+              <button data-memory="mc">MC</button><button data-memory="mr">MR</button>
+              <button data-memory="mplus">M+</button><button data-memory="mminus">M−</button>
+              <button data-value="sin(">sin</button><button data-value="cos(">cos</button>
+              <button data-value="tan(">tan</button><button data-value="log(">log</button>
+              <button data-value="ln(">ln</button><button data-value="sqrt(">√</button>
+              <button data-value="pi">π</button><button data-value="e">e</button>
+            </div>
+            <div class="keypad">
+              <button class="soft" data-action="clear">AC</button><button class="soft" data-action="backspace">⌫</button><button class="soft" data-value="%">%</button><button class="operator" data-value="/">÷</button>
+              <button data-value="7">7</button><button data-value="8">8</button><button data-value="9">9</button><button class="operator" data-value="*">×</button>
+              <button data-value="4">4</button><button data-value="5">5</button><button data-value="6">6</button><button class="operator" data-value="-">−</button>
+              <button data-value="1">1</button><button data-value="2">2</button><button data-value="3">3</button><button class="operator" data-value="+">+</button>
+              <button data-value="(">(</button><button data-value="0">0</button><button data-value=".">.</button><button class="equals" data-action="calculate">=</button>
+            </div>
+          </div>
+
+          <aside class="side-stack">
+            
+            <section class="history-card glass">
+              <div class="section-title"><div><span class="eyebrow">RECENT</span><h3>History</h3></div><button id="clearHistory" class="link-btn">Clear</button></div>
+              <div id="historyList" class="history-list"><p class="empty">No calculations yet.</p></div>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <section id="aiView" class="app-view hidden">
+        <div class="ai-workspace">
+          <aside class="chat-sidebar glass">
+            <button id="newChatBtn" class="primary full">＋ New chat</button>
+            <div class="chat-side-title">CONVERSATIONS</div>
+            <div id="chatList" class="chat-list"></div>
+          </aside>
+
+          <div class="ai-card glass">
+            <div class="ai-header">
+              <div class="ai-orb">AI</div>
+              <div><span class="eyebrow">PREMIUM ONLY</span><h2 id="activeChatTitle">Math Assistant</h2><p>Markdown, formulas, tables and code are formatted automatically.</p></div>
+            </div>
+
+            <div id="aiLocked" class="locked-panel">
+              <div class="lock-icon">✦</div>
+              <h3>AI is locked</h3>
+              <p>You need the single $4.99 AI Premium plan to use this assistant.</p>
+              <button class="primary" data-go-plan>View AI Premium</button>
+            </div>
+
+            <div id="aiChat" class="hidden">
+              <div id="aiMessages" class="ai-messages"></div>
+              <div id="typingIndicator" class="typing hidden"><span></span><span></span><span></span> AI is thinking</div>
+              <form id="aiForm" class="ai-form">
+                <textarea id="aiInput" rows="2" placeholder="Ask a math, coding, or explanation question..."></textarea>
+                <div class="composer-actions">
+                  <button id="stopBtn" type="button" class="soft hidden">Stop</button>
+                  <button class="primary">Send</button>
+                </div>
+              </form>
+              <small class="muted">OpenRouter AI uses the model selected in Settings.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="settingsView" class="app-view hidden">
+  <div class="settings-shell">
+    <div class="settings-card glass">
+      <div class="settings-profile">
+        <div class="avatar large" id="avatar">U</div>
+        <div><span class="eyebrow">YOUR ACCOUNT</span><h2 id="userName">User</h2><p id="userEmail" class="muted"></p></div>
+      </div>
+
+      <div class="settings-group">
+        <h3>Profile</h3>
+        <label>Full name<input id="settingsName" type="text"></label>
+        <label>Email<input id="settingsEmail" type="email" disabled></label>
+        <button id="saveProfileBtn" class="primary">Save profile</button>
+      </div>
+
+      <div class="settings-group">
+        <h3>AI Model</h3>
+        <label>OpenRouter model
+          <select id="modelSelect">
+            <option value="openrouter/free">OpenRouter Free Router</option>
+            <option value="deepseek/deepseek-chat-v3-0324:free">DeepSeek Chat Free</option>
+            <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B Free</option>
+            <option value="google/gemma-3-27b-it:free">Gemma 3 27B Free</option>
+          </select>
+        </label>
+        <p class="muted">Availability can change on OpenRouter. The free router is the safest default.</p>
+      </div>
+
+      <div class="settings-group">
+        <h3>Appearance</h3>
+        <div class="setting-row"><div><strong>Theme</strong><p>Dark or light mode.</p></div><button id="settingsThemeBtn" class="icon-btn">◐</button></div>
+      </div>
+
+      <div class="settings-group plan-settings">
+        <span class="eyebrow">SUBSCRIPTION</span>
+        <div class="plan-hero"><div><h2>AI Premium</h2><p>Required to use the UBX Math AI assistant.</p></div><strong id="premiumPrice">$4.99</strong></div>
+        <div class="current-plan">Current plan: <b id="currentPlanText">Free</b></div>
+        <button id="upgradeBtn" class="premium-btn full">Activate AI Premium — Demo</button>
+        <button id="cancelPlanBtn" class="danger full hidden">Cancel AI Premium</button>
+        <p class="payment-note">Demo mode does not charge real money.</p>
+      </div>
+
+      <div class="settings-group danger-zone">
+        <h3>Account</h3>
+        <button id="settingsLogoutBtn" class="danger full">Log out</button>
+      </div>
+    </div>
+  </div>
+</section></section>
+    </main>
+  </section>
+
+  <div id="adminModal" class="modal hidden">
+    <div class="modal-card glass">
+      <button class="close-modal" data-close-modal>×</button>
+      <div id="adminLoginPanel">
+        <span class="eyebrow">SECURE ACCESS</span><h2>Admin Dashboard</h2>
+        <form id="adminLoginForm" class="auth-form"><label>Password<input id="adminPassword" type="password" required></label><button class="primary full">Open dashboard</button></form>
+      </div>
+      <div id="adminPanel" class="hidden">
+        <div class="section-title"><div><span class="eyebrow">CONTROL CENTER</span><h2>Dashboard</h2></div><button id="adminRefresh" class="icon-btn">↻</button></div>
+        <div class="stats"><div><span>Total users</span><strong id="statTotal">0</strong></div><div><span>Premium</span><strong id="statPremium">0</strong></div><div><span>Free</span><strong id="statFree">0</strong></div><div><span>AI requests</span><strong id="statAI">0</strong></div></div>
+        <div class="admin-settings"><label>AI Premium price<input id="adminPrice" type="number" min=".99" max="4.99" step=".01"></label><label>Announcement<textarea id="adminAnnouncement"></textarea></label><button id="saveAdminSettings" class="primary">Save settings</button></div>
+        <div id="adminUsers" class="admin-users"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

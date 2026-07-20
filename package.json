@@ -1,0 +1,12 @@
+{
+  "name": "ubx-calculator-ai-openrouter-v7-no-install",
+  "version": "7.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

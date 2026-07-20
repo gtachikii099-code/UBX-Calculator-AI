@@ -1,0 +1,13 @@
+[
+  {
+    "id": "06c89fa9-2db6-4ef5-bd24-2bd7c984beda",
+    "name": "rica",
+    "email": "gtachikii099@gmail.com",
+    "passwordHash": "806b01ba66ce69448759ff37df5562d8ad5ddd9fb78441d9f0a1ec6af964f0e758cce9a0c2a28f50a1ac00b9ca3c22a723a3865641da5cec7a32c8387fb0c131",
+    "salt": "96c6037c6cc87f69390d377175e6f93a",
+    "plan": "premium",
+    "history": [],
+    "aiUsage": 1,
+    "createdAt": "2026-07-20T04:35:35.952Z"
+  }
+]
