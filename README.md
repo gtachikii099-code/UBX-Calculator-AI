@@ -12,3 +12,4 @@
 1. Run SETUP-OPENROUTER.bat and add the key.
 2. Run START-APP.bat.
 3. Open http://localhost:5512
+"# UBX-Calculator-AI" 
